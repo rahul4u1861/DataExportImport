@@ -34,7 +34,7 @@ namespace DataExportImport.Controllers
             return View();
         }
 
-        public ActionResult Vehicle()
+        public ActionResult CustomerOwnedVehicle()
         {
             ViewBag.Message = "Your contact page.";
 
