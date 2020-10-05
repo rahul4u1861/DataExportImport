@@ -14,7 +14,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", id = "txtFN" } })
                 @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -22,7 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", id = "txtLN" } })
                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -30,7 +30,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control", id = "txtSSN" } })
                 @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control", id = "txtMobile" } })
                 @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -46,7 +46,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", id = "txtEmail" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -55,7 +55,7 @@
             <tr>
                 <td>Table Heading</td>
                 <td>
-                   Data 1
+                    Data 1
                 </td>
                 <td>Data 2</td>
             </tr>
@@ -72,11 +72,13 @@
         </table>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="Add Owned Car" class="btn btn-default" />
+                <input type="button" value="Add Owned Car" id="btnOwnedCar" class="btn btn-default" onclick="showAddVehicle()" />
             </div>
         </div>
+        <input type="button" value="Export" id="btnExport" onclick="exportDetails()"/>
+        <div id="divOwnedVehicle">
 
-        @{Html.RenderPartial("CustomerOwnedVehicle");}
+        </div>
     </div>
 }
 
@@ -87,6 +89,35 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-<script type="text/javascript">
 
+<script language="javascript" type="text/javascript">
+    function showAddVehicle() {
+        $("#btnOwnedCar").click(function () {
+            $('#divOwnedVehicle').load("/Home/CustomerOwnedVehicle");
+        });
+    };
+
+    function exportDetails() {
+        $("#btnExport").click(function () {
+            var customer = {
+                FirstName: $('#txtFN').val(),
+                LastName: $('#txtLN').val(),
+                SSN: $('#txtSSN').val(),
+                Mobile: $('#txtMobile').val(),
+                Email: $('#txtEmail').val()
+            }
+            $.ajax({
+                type: 'POST',
+                url: "/Home/Export",
+                data: JSON.stringify(customer),
+                contentType: 'application/json; charset=utf-8',  
+                success: function(data) {  
+                    alert("Exported Successfully");  
+                },  
+                error: function() {  
+                    alert("Error!")  
+                }  
+            });
+        });
+    };
 </script>
