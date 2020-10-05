@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using DataExportImport.Models;
 using DataExportImport.Service;
+using Newtonsoft.Json;
 
 namespace DataExportImport.Controllers
 {
@@ -26,23 +27,23 @@ namespace DataExportImport.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
         public ActionResult Customer()
         {
             ViewBag.Message = "Your contact page.";
-            //var exportDataintoJsonFile = new ExportDataintoJsonFile();
-            //exportDataintoJsonFile.GenerateJsonFile(customer);
             return View();
         }
 
-        public void Export(Customer customer)
+        public ActionResult Export(Customer customer)
         {
             var exportDataintoJsonFile = new ExportDataintoJsonFile();
             exportDataintoJsonFile.GenerateJsonFile(customer);
+            ModelState.Clear();
+            return View("Customer");
         }
+
         public ActionResult CustomerOwnedVehicle()
         {
             ViewBag.Message = "Your contact page.";
@@ -59,24 +60,24 @@ namespace DataExportImport.Controllers
         }
 
         [HttpPost]
-        public void Import(HttpPostedFileBase postedFile)
+        public ActionResult Import(HttpPostedFileBase file)
         {
-            var customers = new List<Customer>();
-            string filePath = string.Empty;
-            if (postedFile != null)
+            var path = Server.MapPath("~/Uploads/");
+            if (file != null)
             {
-                string path = Server.MapPath("~/Uploads/");
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
 
-                filePath = path + Path.GetFileName(postedFile.FileName);
-                string extension = Path.GetExtension(postedFile.FileName);
-                postedFile.SaveAs(filePath);
+                var filePath = path + Path.GetFileName(file.FileName);
+                file.SaveAs(filePath);
 
-                //Read the content of Json file.
-                string jsonData = System.IO.File.ReadAllText(filePath);
+                var jsonData = System.IO.File.ReadAllText(filePath);
+                var myDetails = JsonConvert.DeserializeObject<Customer>(jsonData);
 
+                ViewData["data"] = myDetails;
+                return View("Customer");
             }
+            return View("Customer");
         }
     }
 }

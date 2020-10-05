@@ -168,7 +168,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Customer.cshtml" />
     <Content Include="Views\Home\CustomerOwnedVehicle.cshtml" />
-    <Content Include="Views\Home\_Import.cshtml" />
+    <Content Include="Views\Home\Import.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

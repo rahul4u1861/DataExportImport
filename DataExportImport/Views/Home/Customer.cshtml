@@ -1,4 +1,5 @@
-﻿@model DataExportImport.Models.Customer
+﻿@using DataExportImport.Models
+@model DataExportImport.Models.Customer
 
 
 @using (Html.BeginForm())
@@ -7,50 +8,100 @@
 
     <div class="form-horizontal">
         <h4>Customer</h4>
+        @{
+            var details = ViewData["data"] as Customer;
+        }
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+        @if (details != null)
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", id = "txtFN" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("FirstName", details.FirstName, new { @class = "form-control", id = "txtFN" })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", id = "txtLN" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("FirstName", details.LastName, new { @class = "form-control", id = "txtLN" })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control", id = "txtSSN" } })
-                @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("FirstName", details.SSN, new { @class = "form-control", id = "txtSSN" })
+                    @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control", id = "txtMobile" } })
-                @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("FirstName", details.Mobile, new { @class = "form-control", id = "txtMobile" })
+                    @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", id = "txtEmail" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("FirstName", details.Email, new { @class = "form-control", id = "txtEmail" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ID)
 
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", id = "txtFN" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", id = "txtLN" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control", id = "txtSSN" } })
+                    @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control", id = "txtMobile" } })
+                    @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", id = "txtEmail" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
         <table style="width: 100%;">
             <tr>
                 <td>Table Heading</td>
@@ -75,18 +126,26 @@
                 <input type="button" value="Add Owned Car" id="btnOwnedCar" class="btn btn-default" onclick="showAddVehicle()" />
             </div>
         </div>
-        <input type="button" value="Export" id="btnExport" onclick="exportDetails()"/>
-        <div id="divImport">
-            @{ Html.RenderPartial("_Import");}
-        </div>
+        <input type="button" value="Export" id="btnExport" onclick="exportDetails()" />
         <div id="divOwnedVehicle">
         </div>
-        
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" id="btnCreate" class="btn btn-default" />
             </div>
         </div>
+    </div>
+}
+
+<h2>UploadFile</h2>
+
+@using (Html.BeginForm("Import", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        @Html.TextBox("file", "", new { type = "file" }) <br />
+        <input type="submit" value="Upload" />
+        @ViewBag.Message
     </div>
 }
 
@@ -118,20 +177,14 @@
                 type: 'POST',
                 url: "/Home/Export",
                 data: JSON.stringify(customer),
-                contentType: 'application/json; charset=utf-8',  
-                success: function(data) {  
-                    alert("Exported Successfully");  
-                },  
-                error: function() {  
-                    alert("Error!")  
-                }  
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    alert("Exported Successfully");
+                },
+                error: function () {
+                    alert("Error!")
+                }
             });
-        });
-    };
-
-    function importData() {
-        $("#btnOwnedCar").click(function () {
-            $('#divImport').load("/Home/Import");
         });
     };
 </script>

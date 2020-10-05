@@ -155,4 +155,3 @@ C:\DataExportImport\DataExportImport\obj\Debug\DataExportImport.csproj.CoreCompi
 C:\DataExportImport\DataExportImport\obj\Debug\DataExportImport.csproj.CopyComplete
 C:\DataExportImport\DataExportImport\obj\Debug\DataExportImport.dll
 C:\DataExportImport\DataExportImport\obj\Debug\DataExportImport.pdb
-C:\DataExportImport\DataExportImport\obj\Debug\DataExportImport.csprojAssemblyReference.cache
