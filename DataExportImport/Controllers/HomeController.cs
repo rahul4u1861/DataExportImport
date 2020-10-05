@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -47,6 +48,35 @@ namespace DataExportImport.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Customer(Customer customer)
+        {
+            var dbContext = new DbContext();
+            dbContext.save(customer);
+            return View();
+        }
+
+        [HttpPost]
+        public void Import(HttpPostedFileBase postedFile)
+        {
+            var customers = new List<Customer>();
+            string filePath = string.Empty;
+            if (postedFile != null)
+            {
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                filePath = path + Path.GetFileName(postedFile.FileName);
+                string extension = Path.GetExtension(postedFile.FileName);
+                postedFile.SaveAs(filePath);
+
+                //Read the content of Json file.
+                string jsonData = System.IO.File.ReadAllText(filePath);
+
+            }
         }
     }
 }

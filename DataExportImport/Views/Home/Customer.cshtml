@@ -76,8 +76,16 @@
             </div>
         </div>
         <input type="button" value="Export" id="btnExport" onclick="exportDetails()"/>
+        <div id="divImport">
+            @{ Html.RenderPartial("_Import");}
+        </div>
         <div id="divOwnedVehicle">
-
+        </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" id="btnCreate" class="btn btn-default" />
+            </div>
         </div>
     </div>
 }
@@ -118,6 +126,12 @@
                     alert("Error!")  
                 }  
             });
+        });
+    };
+
+    function importData() {
+        $("#btnOwnedCar").click(function () {
+            $('#divImport').load("/Home/Import");
         });
     };
 </script>
